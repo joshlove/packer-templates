@@ -1,0 +1,9 @@
+{
+    "aws_access_key": null,
+    "aws_secret_key": null,
+    "aws_vpc_id": null,
+    "aws_region_name": null,
+    "aws_subnet_id": null,
+    "aws_sg_id": null,
+    "aws_instance_type": null,
+  }

@@ -1,0 +1,45 @@
+{
+  "variables": {
+    "aws_access_key": null,
+    "aws_secret_key": null,
+    "aws_vpc_id": null,
+    "aws_region_name": null,
+    "aws_subnet_id": null,
+    "aws_sg_id": null,
+    "aws_instance_type": null,
+  },
+  "builders": [{
+    "type": "amazon-ebs",
+    "access_key": "{{user `aws_access_key`}}",
+    "secret_key": "{{user `aws_secret_key`}}",
+    "vpc_id": "{{user `aws_vpc_id`}}",
+    "subnet_id": "{{user `aws_subnet_id`}}",
+    "associate_public_ip_address": "true",
+    "region": "{{user `aws_region_name`",
+    "source_ami_filter": {
+      "filters": {
+        "virtualization-type": "hvm",
+        "name": "*/ubuntu-trusty-daily-amd64-server-*",
+        "root-device-type": "ebs"
+      },
+      "owners": ["099720109477"],
+      "most_recent": true
+    },
+    "security_group_id": "sg-7bb77600",
+    "instance_type": "{{user `aws_instance_type`}}",
+    "ssh_username": "ubuntu",
+    "ami_name": "{{timestamp}}-base",
+    "ami_description": "Ubuntu Base Packer Build",
+    "tags": {
+      "name": "Packer Base Ubuntu AMI (Built {{isotime}})",
+      "created_at": "{{isotime}}",
+      "timestamp": "{{timestamp}}"
+    }
+  }],
+    "provisioners": [
+      {
+        "type": "ansible-local",
+        "playbook_file": "./ansible/base.yml"
+      }
+    ]
+}
