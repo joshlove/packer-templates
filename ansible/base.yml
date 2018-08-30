@@ -4,22 +4,22 @@
   connection: local
   sudo: yes
   tasks:
-  - name: apt update
+  - name: apt update cache
     apt: update_cache=yes
 
-  — name: apt update
-    command: sudo apt-get update
+  - name: apt update
+    apt: upgrade=dist
 
-  — name: Install list of packages
+  - name: Install list of packages
     apt: name={{item}} state=installed
     with_items:
-      - git
-      — unzip
-      — curl
-      — bash-completion
-      — tree
-      — ntp
-      - bc
+     - git
+     - unzip
+     - curl
+     - bash-completion
+     - tree
+     - ntp
+     - bc
 
   - name: pip packages
     pip:
