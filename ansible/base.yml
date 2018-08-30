@@ -1,27 +1,26 @@
 ---
 # A basic set of tools to install on an ubuntu box
-- hosts: localhost
-  connection: local
-  sudo: yes
+- hosts: all
+  become: yes
+
   tasks:
-  - name: apt update cache
-    apt: update_cache=yes
+    - name: apt update cache
+      apt: update_cache=yes
 
-  - name: apt update
-    apt: upgrade=dist
+    - name: apt update
+      apt: upgrade=dist
 
-  - name: Install list of packages
-    apt: name={{item}} state=installed
-    with_items:
-     - git
-     - unzip
-     - curl
-     - bash-completion
-     - tree
-     - ntp
-     - bc
-
-  - name: pip packages
-    pip:
-      name: awscli
+    - name: Install list of packages
+      apt: name={{item}} state=installed
+      with_items:
+        - git
+        - unzip
+        - curl
+        - bash-completion
+        - tree
+        - ntp
+        - bc
+    - name: pip packages
+      pip:
+        name: awscli
 -
