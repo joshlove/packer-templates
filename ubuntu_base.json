@@ -1,13 +1,4 @@
 {
-  "variables": {
-    "aws_access_key": null,
-    "aws_secret_key": null,
-    "aws_vpc_id": null,
-    "aws_region_name": null,
-    "aws_subnet_id": null,
-    "aws_sg_id": null,
-    "aws_instance_type": null,
-  },
   "builders": [{
     "type": "amazon-ebs",
     "access_key": "{{user `aws_access_key`}}",
@@ -15,7 +6,7 @@
     "vpc_id": "{{user `aws_vpc_id`}}",
     "subnet_id": "{{user `aws_subnet_id`}}",
     "associate_public_ip_address": "true",
-    "region": "{{user `aws_region_name`",
+    "region": "{{user `aws_region_name`}}",
     "source_ami_filter": {
       "filters": {
         "virtualization-type": "hvm",
@@ -25,7 +16,7 @@
       "owners": ["099720109477"],
       "most_recent": true
     },
-    "security_group_id": "sg-7bb77600",
+    "security_group_id": "{{user `aws_sg_id`}}",
     "instance_type": "{{user `aws_instance_type`}}",
     "ssh_username": "ubuntu",
     "ami_name": "{{timestamp}}-base",
@@ -38,7 +29,7 @@
   }],
     "provisioners": [
       {
-        "type": "ansible-local",
+        "type": "ansible",
         "playbook_file": "./ansible/base.yml"
       }
     ]
