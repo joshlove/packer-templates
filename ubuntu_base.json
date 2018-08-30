@@ -29,7 +29,12 @@
   }],
     "provisioners": [
       {
-        "type": "ansible",
+        "type": "shell",
+        "execute_command": "echo 'ubuntu' | {{.Vars}} sudo -S -E bash '{{.Path}}'",
+        "script": "scripts/install_ansible.sh"
+      },
+      {
+        "type": "ansible-local",
         "playbook_file": "./ansible/base.yml"
       }
     ]
