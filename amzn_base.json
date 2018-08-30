@@ -8,14 +8,17 @@
     "associate_public_ip_address": "true",
     "region": "{{user `aws_region_name`}}",
     "source_ami_filter": {
-      "filters": {
-        "virtualization-type": "hvm",
-        "name": "*/ubuntu-xenial-16.04-amd64-server-*",
-        "root-device-type": "ebs"
-      },
-      "owners": ["099720109477"],
-      "most_recent": true
+        "filters": {
+            "virtualization-type": "hvm",
+            "name": "amzn-ami*-ebs",
+            "root-device-type": "ebs"
+        },
+        "owners": ["137112412989", "591542846629", "801119661308",
+                   "102837901569", "013907871322", "206029621532",
+                   "286198878708", "443319210888"],
+        "most_recent": true
     },
+    "security_group_id": "{{user `aws_sg_id`}}",
     "instance_type": "{{user `aws_instance_type`}}",
     "ssh_username": "ubuntu",
     "ami_name": "{{timestamp}}-base",

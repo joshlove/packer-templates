@@ -1,5 +1,6 @@
 ---
 # A basic set of tools to install on an ubuntu box
+# I'll eventually make this work with ansible's facts to switch between OS families
 - hosts: 127.0.0.1
   connection: local
   become: yes
@@ -8,9 +9,11 @@
   tasks:
     - name: apt update cache
       apt: update_cache=yes
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
     - name: apt update
       apt: upgrade=dist
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
     - name: Install list of packages
       apt: name={{item}} state=present
@@ -22,7 +25,9 @@
         - tree
         - ntp
         - bc
+        - jq
         - python-pip
+      when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
     - name: pip packages
       pip:

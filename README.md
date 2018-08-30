@@ -39,3 +39,15 @@ Here's an example of the shell script provider for an ubuntu box, with root priv
 ```
 
 If you want to use something that connects to the instance from your machine for provisioning (like ansible), make sure it's installed on your local machine.
+
+### finding ami-id owners
+
+```
+aws ec2 describe-images --image-ids <an AMI id>
+```
+
+It will have output you can discern the owner ID from.
+
+### bits and pieces
+
+I have a variable where you can define a security group. Do this if you have a prebuilt packer SG that knows all the source IPs you might connect from. If you have a VPN where the egress IP address could change, or your IP changes often, that could be annoying to track; I have it excluded from the template for that reason. You'll need to reference the packer docs for the right KV to add to your template.
