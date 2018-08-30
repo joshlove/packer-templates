@@ -1,7 +1,9 @@
 ---
 # A basic set of tools to install on an ubuntu box
-- hosts: all
+- hosts: 127.0.0.1
+  connection: local
   become: yes
+  become_method: sudo
 
   tasks:
     - name: apt update cache
@@ -11,7 +13,7 @@
       apt: upgrade=dist
 
     - name: Install list of packages
-      apt: name={{item}} state=installed
+      apt: name={{item}} state=present
       with_items:
         - git
         - unzip
@@ -20,7 +22,8 @@
         - tree
         - ntp
         - bc
+        - python-pip
+
     - name: pip packages
       pip:
         name: awscli
--
